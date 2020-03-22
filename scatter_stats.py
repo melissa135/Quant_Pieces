@@ -14,7 +14,7 @@ bins = dict()
 for i in range(0, len(df)):
     pred = df.iloc[i]['pred']
     actual = df.iloc[i]['actual']
-    pred_str = '%.1f'%pred
+    pred_str = str(int(pred)) # '%.1f'%pred
     if pred_str not in bins.keys():
         bins[pred_str] = []
     bins[pred_str].append(actual)
@@ -23,7 +23,7 @@ for i in range(0, len(df)):
 
 keys = [float(k) for k in bins.keys()]
 keys.sort()
-keys = ['%.1f'%k for k in keys ]
+keys = [str(int(k)) for k in keys ] # '%.1f'%k
 
 for k in keys:
     avg = sum(bins[k])/len(bins[k])
