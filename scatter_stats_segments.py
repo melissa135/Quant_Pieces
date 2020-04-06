@@ -9,7 +9,7 @@ fb = open(fname_bins, 'w')
 
 pairs = []
 
-for i in range(0, len(df)):
+for i in range(10000, len(df)):
     pred = df.iloc[i]['pred']
     actual = df.iloc[i]['actual']
     pairs.append((pred, actual))
