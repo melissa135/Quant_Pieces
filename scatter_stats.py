@@ -1,9 +1,9 @@
 import random
 import pandas as pd
 
-fname = '/home/zhu/workspace/Stock_Offline/pred_actual_5ensemble'
-fname_sample = '/home/zhu/workspace/Stock_Offline/pred_actual_5ensemble_sample'
-fname_bins = '/home/zhu/workspace/Stock_Offline/pred_actual_5ensemble_bins'
+fname = '/home/zhu/workspace/Stock_Offline/pred_actual_ensemble'
+fname_sample = '/home/zhu/workspace/Stock_Offline/pred_actual_ensemble_sample'
+fname_bins = '/home/zhu/workspace/Stock_Offline/pred_actual_ensemble_bins'
 
 df = pd.read_csv(fname)
 fs = open(fname_sample, 'w')

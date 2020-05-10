@@ -1,31 +1,79 @@
-days_count_50 = 'tp_days: 6334, np_days: 6166'
-days_count_62 = 'tp_days: 7822, np_days: 7618'
+days_count_20 = 'top1_tp_days: 499, top1_np_days: 501, top3_tp_days: 1510, top3_np_days: 1490, top10_tp_days: 4969, top10_np_days: 5029'
+days_count_50 = 'top1_tp_days: 1247, top1_np_days: 1253, top3_tp_days: 3845, top3_np_days: 3655, top10_tp_days: 12524, top10_np_days: 12474'
+days_count_62 = 'top1_tp_days: 1540, top1_np_days: 1548, top3_tp_days: 4750, top3_np_days: 4514, top10_tp_days: 15497, top10_np_days: 15381'
 
-tpd_50 = int(days_count_50.split(',')[0].split(':')[1])
-npd_50 = int(days_count_50.split(',')[1].split(':')[1])
+performance_step20_str = 'top1_log_avg: 0.3174, top3_log_avg: 0.2698, top10_log_avg: 0.2046'
+performance_step50_str = 'top1_log_avg: 0.2996, top3_log_avg: 0.2676, top10_log_avg: 0.2059'
+performance_step62_str = 'top1_log_avg: 0.2958, top3_log_avg: 0.2647, top10_log_avg: 0.2011'
 
-tpd_62 = int(days_count_62.split(',')[0].split(':')[1])
-npd_62 = int(days_count_62.split(',')[1].split(':')[1])
+tpd_1_20 = int(days_count_20.split(',')[0].split(':')[1])
+npd_1_20 = int(days_count_20.split(',')[1].split(':')[1])
+tpd_3_20 = int(days_count_20.split(',')[2].split(':')[1])
+npd_3_20 = int(days_count_20.split(',')[3].split(':')[1])
+tpd_10_20 = int(days_count_20.split(',')[4].split(':')[1])
+npd_10_20 = int(days_count_20.split(',')[5].split(':')[1])
 
-p_count = tpd_62 - tpd_50 - ( npd_62 - npd_50 )
+tpd_1_62 = int(days_count_62.split(',')[0].split(':')[1])
+npd_1_62 = int(days_count_62.split(',')[1].split(':')[1])
+tpd_3_62 = int(days_count_62.split(',')[2].split(':')[1])
+npd_3_62 = int(days_count_62.split(',')[3].split(':')[1])
+tpd_10_62 = int(days_count_62.split(',')[4].split(':')[1])
+npd_10_62 = int(days_count_62.split(',')[5].split(':')[1])
 
-performance_step50_str = 'top1_avg: 0.3881, top2_avg: 0.2729, top3_avg: 0.2574, top4_avg: 0.2908, top5_avg: 0.2272'
+tn_1_ratio = (tpd_1_62 - tpd_1_20) / ( npd_1_62 - npd_1_20 )
+tn_3_ratio = (tpd_3_62 - tpd_3_20) / ( npd_3_62 - npd_3_20 )
+tn_10_ratio = (tpd_10_62 - tpd_10_20) / ( npd_10_62 - npd_10_20 )
+
+performance_step20_list = [ float(segment.split(':')[1]) for segment in performance_step20_str.split(',') ]
+performance_step62_list = [ float(segment.split(':')[1]) for segment in performance_step62_str.split(',') ]
+
+A = 20
+B = 42
+
+performance = []
+for i in range(0, 3):
+    score = (performance_step62_list[i] * (A+B) - performance_step20_list[i] * A)/B
+    performance.append(score)
+
+print('normal, random test A plus, 20 - 62')
+print('%.4f,'%tn_1_ratio, '%.4f,'%tn_3_ratio, '%.4f,'%tn_10_ratio)
+#print('%.4f'%sum(performance))
+print(', '.join([ '%.4f' % p for p in performance]))
+
+# ----------------------------------------------------------------------------------------
+
+tpd_1_50 = int(days_count_50.split(',')[0].split(':')[1])
+npd_1_50 = int(days_count_50.split(',')[1].split(':')[1])
+tpd_3_50 = int(days_count_50.split(',')[2].split(':')[1])
+npd_3_50 = int(days_count_50.split(',')[3].split(':')[1])
+tpd_10_50 = int(days_count_50.split(',')[4].split(':')[1])
+npd_10_50 = int(days_count_50.split(',')[5].split(':')[1])
+
+tpd_1_62 = int(days_count_62.split(',')[0].split(':')[1])
+npd_1_62 = int(days_count_62.split(',')[1].split(':')[1])
+tpd_3_62 = int(days_count_62.split(',')[2].split(':')[1])
+npd_3_62 = int(days_count_62.split(',')[3].split(':')[1])
+tpd_10_62 = int(days_count_62.split(',')[4].split(':')[1])
+npd_10_62 = int(days_count_62.split(',')[5].split(':')[1])
+
+tn_1_ratio = (tpd_1_62 - tpd_1_50) / ( npd_1_62 - npd_1_50 )
+tn_3_ratio = (tpd_3_62 - tpd_3_50) / ( npd_3_62 - npd_3_50 )
+tn_10_ratio = (tpd_10_62 - tpd_10_50) / ( npd_10_62 - npd_10_50 )
+
 performance_step50_list = [ float(segment.split(':')[1]) for segment in performance_step50_str.split(',') ]
-
-performance_step62_str = 'top1_avg: 0.3514, top2_avg: 0.2586, top3_avg: 0.2432, top4_avg: 0.2731, top5_avg: 0.2352'
 performance_step62_list = [ float(segment.split(':')[1]) for segment in performance_step62_str.split(',') ]
 
 A = 50
 B = 12
 
 performance = []
-for i in range(0, 5):
+for i in range(0, 3):
     score = (performance_step62_list[i] * (A+B) - performance_step50_list[i] * A)/B
     performance.append(score)
 
-print('normal, random test A plus')
-print(p_count)
-print('%.4f'%sum(performance))
+print('normal, random test A plus, 50 - 62')
+print('%.4f,'%tn_1_ratio, '%.4f,'%tn_3_ratio, '%.4f,'%tn_10_ratio)
+#print('%.4f'%sum(performance))
 print(', '.join([ '%.4f' % p for p in performance]))
 
 '''
