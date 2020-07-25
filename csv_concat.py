@@ -41,5 +41,3 @@ for root, _, fnames in os.walk(base_dir1):
 
         new_df = pd.concat([df2.iloc[0:i], df1, df2.iloc[j:]])
         new_df.to_csv(patht)
-        
-        
