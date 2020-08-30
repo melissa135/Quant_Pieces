@@ -78,12 +78,16 @@ class database_utils(object):
 
         return df_result
 
-    def read_recent_dataframe_from_mysql(self, columns_list, table_name, recent_days):
+    def read_recent_dataframe_from_mysql(self, columns_list, table_name, counts):
 
         columns_str = ','.join(columns_list)
-        sql = 'SELECT * FROM \
-               ( SELECT %s FROM %s ORDER BY date DESC LIMIT %d ) t0 \
-               ORDER BY date;'%(columns_str, table_name, recent_days)
+        if counts == 0 :
+            sql = 'SELECT %s FROM %s WHERE date = \
+                   (SELECT MAX(date) FROM %s);'%(columns_str, table_name, table_name)
+        else:
+            sql = 'SELECT * FROM \
+                   ( SELECT %s FROM %s ORDER BY date DESC LIMIT %d ) t0 \
+                   ORDER BY date;'%(columns_str, table_name, counts)
         
         result = []
         try:
@@ -91,6 +95,10 @@ class database_utils(object):
             result = self.cursor.fetchall()
         except Exception as e:
             print(e)
+
+        if len(result) == 0 :
+            df_result = pd.DataFrame(columns=columns_list)
+            return df_result
 
         columns = [[ row[i] for row in result ] for i in range(0, len(result[0]))]
         data_dict = { columns_list[i]:columns[i] for i in range(0, len(columns)) }
@@ -111,6 +119,10 @@ class database_utils(object):
             result = self.cursor.fetchall()
         except Exception as e:
             print(e)
+
+        if len(result) == 0 :
+            df_result = pd.DataFrame(columns=columns_list)
+            return df_result
 
         columns = [[ row[i] for row in result ] for i in range(0, len(result[0]))]
         data_dict = { columns_list[i]:columns[i] for i in range(0, len(columns)) }

@@ -63,9 +63,16 @@ def update_recent_coef(preds):
     reg.fit(x_bins, y_bins)
     return reg.coef_[0]
 
+def calc_pa_product(a_list, p_list):
+    sum_a = sum(a_list)
+    sum_p = sum(p_list)
+    n = len(a_list)
+    sum_pa = sum([a_list[i]*p_list[i] for i in range(0, n)])
+    pa_product = 2*(n*sum_pa - sum_a*sum_p)
+    return pa_product
 
 f_dir = '/home/zhu/workspace/Stock_Offline/predictor'
-folder = 'mlp_5min_among_stock_all_encoding_concat_later_fixed_autoencoder_20200722033034'
+folder = 'mlp_august_baseline_2020_20200815075609'
 f_name = folder + '/results/pred_actual_ensemble'
 
 f_path = os.path.join(f_dir, f_name)
@@ -115,19 +122,20 @@ top1_actuals, top3_actuals, top5_actuals, top10_actuals = [], [], [], []
 top1_tp_days, top1_np_days, top3_tp_days, top3_np_days, top10_tp_days, top10_np_days = 0, 0, 0, 0, 0, 0
 net_change_topn_stay30 = 1.0
 net_change_topn_stay0 = 1.0
+total_hold, total_trade = 0, 0
+pa_product_list = []
 last_set = dict()
 cash = 1.0
-count = 2
+count = 5
 cost = 0.15
 
-coef_lower = 0.02
-coef_upper = 0.20
-coef = (coef_lower+coef_upper)/2
+coef = 0.5
 ensemble = 8
 
-start_index = len(pred_list) - 587
+start_index = len(pred_list) - 661
+end_index = len(pred_list)-11
 
-for i in range(start_index-50, len(pred_list)):
+for i in range(start_index-50, end_index):
     if i % 50 == 0:
         recent_preds = pred_list[i-500:i]
         coef = update_recent_coef(recent_preds)
@@ -161,6 +169,11 @@ for i in range(start_index-50, len(pred_list)):
             else :
                 top10_np_days = top10_np_days + 1
 
+    a_list = [ item.actual for item in pred_info.sorted_stocks ]
+    p_list = [ item.pred/ensemble for item in pred_info.sorted_stocks ]
+    pa_product = calc_pa_product(a_list, p_list)
+    pa_product_list.append(pa_product)
+
     topn_actual = [ item.actual for item in pred_info.sorted_stocks[:count] ]
     change = sum(topn_actual)/len(topn_actual)
     net_change_topn_stay0 = net_change_topn_stay0 * ( 1 + change/100 )
@@ -171,7 +184,7 @@ for i in range(start_index-50, len(pred_list)):
 
     j = 0
     sellout_stocks = set()
-    for j in range(0, min(len(changable_sorted), count)):
+    for j in range(0, len(changable_sorted)):
         cands_pred = pred_info.pred_infos[candidates[j]].pred
         last_set_pred = pred_info.pred_infos[changable_sorted[-1]].pred
         #print(cands_pred, last_set_pred)
@@ -183,6 +196,8 @@ for i in range(start_index-50, len(pred_list)):
             break
 
     last_set_keys = set(last_set.keys())
+    total_hold = total_hold + len(last_set_keys)
+    total_trade = total_trade + len(sellout_stocks)
 
     for stock in last_set_keys:
         if stock not in pred_info.pred_infos:
@@ -241,6 +256,8 @@ print('top3 avg: %.4f'%(sum(top3_actuals)/len(top3_actuals)))
 print('top5 avg: %.4f'%(sum(top5_actuals)/len(top5_actuals)))
 print('top10 avg: %.4f'%(sum(top10_actuals)/len(top10_actuals)))
 
+print('pa_product avg: %.2f'%(sum(pa_product_list)/len(pa_product_list)))
+
 final_net = sum(last_set.values())
-#print('net_change_topn_stay0 %.4f'%net_change_topn_stay0)
+print('trade ratio: %.4f'%(total_trade/total_hold))
 print('net_change_top%d_optimized_cost %.4f'%(count, final_net/base_net))

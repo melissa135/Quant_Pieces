@@ -1,14 +1,14 @@
-days_count_20 = 'top1_tp_days: 495, top1_np_days: 505, top3_tp_days: 1521, top3_np_days: 1479, top10_tp_days: 5023, top10_np_days: 4975'
-days_count_50 = 'top1_tp_days: 1313, top1_np_days: 1187, top3_tp_days: 3951, top3_np_days: 3549, top10_tp_days: 12812, top10_np_days: 12186'
-days_count_62 = 'top1_tp_days: 1630, top1_np_days: 1457, top3_tp_days: 4872, top3_np_days: 4389, top10_tp_days: 15822, top10_np_days: 15046'
+days_count_20 = 'top1_tp_days: 517, top1_np_days: 483, top3_tp_days: 1564, top3_np_days: 1436, top10_tp_days: 5042, top10_np_days: 4956'
+days_count_50 = 'top1_tp_days: 1292, top1_np_days: 1208, top3_tp_days: 3863, top3_np_days: 3637, top10_tp_days: 12633, top10_np_days: 12365'
+days_count_63 = 'top1_tp_days: 1618, top1_np_days: 1543, top3_tp_days: 4876, top3_np_days: 4607, top10_tp_days: 15940, top10_np_days: 15668'
 
-performance_step20_str = 'top1_log_avg: 0.3002, top3_log_avg: 0.3603, top10_log_avg: 0.2597'
-performance_step50_str = 'top1_log_avg: 0.4486, top3_log_avg: 0.3960, top10_log_avg: 0.2677'
-performance_step62_str = 'top1_log_avg: 0.4139, top3_log_avg: 0.3745, top10_log_avg: 0.2541'
+performance_step20_str = 'top1_log_avg: 0.4238, top3_log_avg: 0.3667, top10_log_avg: 0.2538'
+performance_step50_str = 'top1_log_avg: 0.3799, top3_log_avg: 0.3008, top10_log_avg: 0.2280'
+performance_step63_str = 'top1_log_avg: 0.3579, top3_log_avg: 0.2978, top10_log_avg: 0.2137'
 
-net_asset_20 = 'top5_stay30_no_cost: 12.2946, top5_stay30_normal_cost: 6.0605, top2_stay30_normal_cost: 6.6839, top1_stay30_normal_cost: 13.6146'
-net_asset_50 = 'top5_stay30_no_cost: 458.7838, top5_stay30_normal_cost: 87.7550, top2_stay30_normal_cost: 154.5673, top1_stay30_normal_cost: 812.6891'
-net_asset_62 = 'top5_stay30_no_cost: 1903.2105, top5_stay30_normal_cost: 250.1459, top2_stay30_normal_cost: 403.1513, top1_stay30_normal_cost: 2228.2731'
+net_asset_20 = 'top5_stay30_no_cost: 24.1721, top5_stay30_normal_cost: 12.0011, top2_stay30_normal_cost: 12.1811, top5_coef_based_normal_cost: 7.9257, top2_coef_based_normal_cost: 11.5348'
+net_asset_50 = 'top5_stay30_no_cost: 1280.5870, top5_stay30_normal_cost: 247.7545, top2_stay30_normal_cost: 229.3293, top5_coef_based_normal_cost: 131.3422, top2_coef_based_normal_cost: 785.5509'
+net_asset_63 = 'top5_stay30_no_cost: 5550.5448, top5_stay30_normal_cost: 718.4335, top2_stay30_normal_cost: 907.3443, top5_coef_based_normal_cost: 304.7171, top2_coef_based_normal_cost: 2770.9628'
 
 tpd_1_20 = int(days_count_20.split(',')[0].split(':')[1])
 npd_1_20 = int(days_count_20.split(',')[1].split(':')[1])
@@ -17,46 +17,49 @@ npd_3_20 = int(days_count_20.split(',')[3].split(':')[1])
 tpd_10_20 = int(days_count_20.split(',')[4].split(':')[1])
 npd_10_20 = int(days_count_20.split(',')[5].split(':')[1])
 
-tpd_1_62 = int(days_count_62.split(',')[0].split(':')[1])
-npd_1_62 = int(days_count_62.split(',')[1].split(':')[1])
-tpd_3_62 = int(days_count_62.split(',')[2].split(':')[1])
-npd_3_62 = int(days_count_62.split(',')[3].split(':')[1])
-tpd_10_62 = int(days_count_62.split(',')[4].split(':')[1])
-npd_10_62 = int(days_count_62.split(',')[5].split(':')[1])
+tpd_1_63 = int(days_count_63.split(',')[0].split(':')[1])
+npd_1_63 = int(days_count_63.split(',')[1].split(':')[1])
+tpd_3_63 = int(days_count_63.split(',')[2].split(':')[1])
+npd_3_63 = int(days_count_63.split(',')[3].split(':')[1])
+tpd_10_63 = int(days_count_63.split(',')[4].split(':')[1])
+npd_10_63 = int(days_count_63.split(',')[5].split(':')[1])
 
-tn_1_ratio = (tpd_1_62 - tpd_1_20) / ( npd_1_62 - npd_1_20 )
-tn_3_ratio = (tpd_3_62 - tpd_3_20) / ( npd_3_62 - npd_3_20 )
-tn_10_ratio = (tpd_10_62 - tpd_10_20) / ( npd_10_62 - npd_10_20 )
+tn_1_ratio = (tpd_1_63 - tpd_1_20) / ( npd_1_63 - npd_1_20 )
+tn_3_ratio = (tpd_3_63 - tpd_3_20) / ( npd_3_63 - npd_3_20 )
+tn_10_ratio = (tpd_10_63 - tpd_10_20) / ( npd_10_63 - npd_10_20 )
 
 performance_step20_list = [ float(segment.split(':')[1]) for segment in performance_step20_str.split(',') ]
-performance_step62_list = [ float(segment.split(':')[1]) for segment in performance_step62_str.split(',') ]
+performance_step63_list = [ float(segment.split(':')[1]) for segment in performance_step63_str.split(',') ]
 
 top5_stay30_no_cost_20 = float(net_asset_20.split(',')[0].split(':')[1])
 top5_stay30_normal_cost_20 = float(net_asset_20.split(',')[1].split(':')[1])
 top2_stay30_normal_cost_20 = float(net_asset_20.split(',')[2].split(':')[1])
-top1_stay30_normal_cost_20 = float(net_asset_20.split(',')[3].split(':')[1])
+top5_coef_based_normal_cost_20 = float(net_asset_20.split(',')[3].split(':')[1])
+top2_coef_based_normal_cost_20 = float(net_asset_20.split(',')[4].split(':')[1])
 
 top5_stay30_no_cost_50 = float(net_asset_50.split(',')[0].split(':')[1])
 top5_stay30_normal_cost_50 = float(net_asset_50.split(',')[1].split(':')[1])
 top2_stay30_normal_cost_50 = float(net_asset_50.split(',')[2].split(':')[1])
-top1_stay30_normal_cost_50 = float(net_asset_50.split(',')[3].split(':')[1])
+top5_coef_based_normal_cost_50 = float(net_asset_50.split(',')[3].split(':')[1])
+top2_coef_based_normal_cost_50 = float(net_asset_50.split(',')[4].split(':')[1])
 
 A = 20
-B = 42
+B = 43
 
 performance = []
 for i in range(0, 3):
-    score = (performance_step62_list[i] * (A+B) - performance_step20_list[i] * A)/B
+    score = (performance_step63_list[i] * (A+B) - performance_step20_list[i] * A)/B
     performance.append(score)
 
-print('normal, random test A plus, 20 - 62')
+print('normal, random test A plus, 20 - 63')
 print('%.4f,'%tn_1_ratio, '%.4f,'%tn_3_ratio, '%.4f,'%tn_10_ratio)
 #print('%.4f'%sum(performance))
 print(', '.join([ '%.4f' % p for p in performance]))
-print('net change of top1_stay30_normal_cost: %.4f'%(top1_stay30_normal_cost_50/top1_stay30_normal_cost_20))
-print('net change of top2_stay30_normal_cost: %.4f'%(top2_stay30_normal_cost_50/top2_stay30_normal_cost_20))
-print('net change of top5_stay30_normal_cost: %.4f'%(top5_stay30_normal_cost_50/top5_stay30_normal_cost_20))
-print('net change of top5_stay30_no_cost: %.4f'%(top5_stay30_no_cost_50/top5_stay30_no_cost_20))
+print('net change of top2_stay30_normal_cost_50: %.4f'%(top2_stay30_normal_cost_50/top2_stay30_normal_cost_20))
+print('net change of top2_coef_based_normal_cost_50: %.4f'%(top2_coef_based_normal_cost_50/top2_coef_based_normal_cost_20))
+print('net change of top5_stay30_no_cost_50: %.4f'%(top5_stay30_no_cost_50/top5_stay30_no_cost_20))
+print('net change of top5_stay30_normal_cost_50: %.4f'%(top5_stay30_normal_cost_50/top5_stay30_normal_cost_20))
+print('net change of top5_coef_based_normal_cost_50: %.4f'%(top5_coef_based_normal_cost_50/top5_coef_based_normal_cost_20))
 
 # ----------------------------------------------------------------------------------------
 
@@ -67,41 +70,43 @@ npd_3_50 = int(days_count_50.split(',')[3].split(':')[1])
 tpd_10_50 = int(days_count_50.split(',')[4].split(':')[1])
 npd_10_50 = int(days_count_50.split(',')[5].split(':')[1])
 
-tpd_1_62 = int(days_count_62.split(',')[0].split(':')[1])
-npd_1_62 = int(days_count_62.split(',')[1].split(':')[1])
-tpd_3_62 = int(days_count_62.split(',')[2].split(':')[1])
-npd_3_62 = int(days_count_62.split(',')[3].split(':')[1])
-tpd_10_62 = int(days_count_62.split(',')[4].split(':')[1])
-npd_10_62 = int(days_count_62.split(',')[5].split(':')[1])
+tpd_1_63 = int(days_count_63.split(',')[0].split(':')[1])
+npd_1_63 = int(days_count_63.split(',')[1].split(':')[1])
+tpd_3_63 = int(days_count_63.split(',')[2].split(':')[1])
+npd_3_63 = int(days_count_63.split(',')[3].split(':')[1])
+tpd_10_63 = int(days_count_63.split(',')[4].split(':')[1])
+npd_10_63 = int(days_count_63.split(',')[5].split(':')[1])
 
-tn_1_ratio = (tpd_1_62 - tpd_1_50) / ( npd_1_62 - npd_1_50 )
-tn_3_ratio = (tpd_3_62 - tpd_3_50) / ( npd_3_62 - npd_3_50 )
-tn_10_ratio = (tpd_10_62 - tpd_10_50) / ( npd_10_62 - npd_10_50 )
+tn_1_ratio = (tpd_1_63 - tpd_1_50) / ( npd_1_63 - npd_1_50 )
+tn_3_ratio = (tpd_3_63 - tpd_3_50) / ( npd_3_63 - npd_3_50 )
+tn_10_ratio = (tpd_10_63 - tpd_10_50) / ( npd_10_63 - npd_10_50 )
 
 performance_step50_list = [ float(segment.split(':')[1]) for segment in performance_step50_str.split(',') ]
-performance_step62_list = [ float(segment.split(':')[1]) for segment in performance_step62_str.split(',') ]
+performance_step63_list = [ float(segment.split(':')[1]) for segment in performance_step63_str.split(',') ]
 
-top5_stay30_no_cost_62 = float(net_asset_62.split(',')[0].split(':')[1])
-top5_stay30_normal_cost_62 = float(net_asset_62.split(',')[1].split(':')[1])
-top2_stay30_normal_cost_62 = float(net_asset_62.split(',')[2].split(':')[1])
-top1_stay30_normal_cost_62 = float(net_asset_62.split(',')[3].split(':')[1])
+top5_stay30_no_cost_63 = float(net_asset_63.split(',')[0].split(':')[1])
+top5_stay30_normal_cost_63 = float(net_asset_63.split(',')[1].split(':')[1])
+top2_stay30_normal_cost_63 = float(net_asset_63.split(',')[2].split(':')[1])
+top5_coef_based_normal_cost_63 = float(net_asset_63.split(',')[3].split(':')[1])
+top2_coef_based_normal_cost_63 = float(net_asset_63.split(',')[4].split(':')[1])
 
 A = 50
-B = 12
+B = 13
 
 performance = []
 for i in range(0, 3):
-    score = (performance_step62_list[i] * (A+B) - performance_step50_list[i] * A)/B
+    score = (performance_step63_list[i] * (A+B) - performance_step50_list[i] * A)/B
     performance.append(score)
 
-print('normal, random test A plus, 50 - 62')
+print('normal, random test A plus, 50 - 63')
 print('%.4f,'%tn_1_ratio, '%.4f,'%tn_3_ratio, '%.4f,'%tn_10_ratio)
 #print('%.4f'%sum(performance))
 print(', '.join([ '%.4f' % p for p in performance]))
-print('net change of top1_stay30_normal_cost: %.4f'%(top1_stay30_normal_cost_62/top1_stay30_normal_cost_50))
-print('net change of top2_stay30_normal_cost: %.4f'%(top2_stay30_normal_cost_62/top2_stay30_normal_cost_50))
-print('net change of top5_stay30_normal_cost: %.4f'%(top5_stay30_normal_cost_62/top5_stay30_normal_cost_50))
-print('net change of top5_stay30_no_cost: %.4f'%(top5_stay30_no_cost_62/top5_stay30_no_cost_50))
+print('net change of top2_stay30_normal_cost_63: %.4f'%(top2_stay30_normal_cost_63/top2_stay30_normal_cost_50))
+print('net change of top2_coef_based_normal_cost_63: %.4f'%(top2_coef_based_normal_cost_63/top2_coef_based_normal_cost_50))
+print('net change of top5_stay30_no_cost_63: %.4f'%(top5_stay30_no_cost_63/top5_stay30_no_cost_50))
+print('net change of top5_stay30_normal_cost_63: %.4f'%(top5_stay30_normal_cost_63/top5_stay30_normal_cost_50))
+print('net change of top5_coef_based_normal_cost_63: %.4f'%(top5_coef_based_normal_cost_63/top5_coef_based_normal_cost_50))
 '''
 47 - 57
 === RESTART: /home/zhu/workspace/Quant_Pieces/avg_performance_calculate.py ===
