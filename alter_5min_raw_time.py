@@ -40,7 +40,7 @@ for sf in suffix:
 
     print('modify %d in table %s'%(modify_count, input_table_name))
     '''
-    other_table_name = '_'.join([prefix, '30minute_train', sf])
+    other_table_name = '_'.join([prefix, '5minute_train', sf])
     del_command = 'drop table if exists %s;'%other_table_name
     try:
         db_handle.cursor.execute(del_command)
@@ -82,7 +82,7 @@ for sf in suffix:
 
     print('modify %d in table %s'%(modify_count, input_table_name))
     '''
-    other_table_name = '_'.join([prefix, '30minute_train', sf])
+    other_table_name = '_'.join([prefix, '5minute_train', sf])
     del_command = 'drop table if exists %s;'%other_table_name
     try:
         db_handle.cursor.execute(del_command)
