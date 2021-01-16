@@ -137,7 +137,7 @@ for i in range(start_index, end_index):
     day_infos = all_day_infos[i]
     front_range = int(0.3*len(day_infos.sorted_stock_id))
 
-    avg_actuals = sum([day_infos.all_stock_info[sid].actual for sid in day_infos.sorted_stock_id])/len(day_infos.sorted_stock_id)
+    avg_actuals = sum([item.actual for item in day_infos.all_stock_info.values()])/len(day_infos.all_stock_info)
     log_avg_actuals = log_change_single(avg_actuals)
     
     top1_sids = day_infos.sorted_stock_id[:1] +\
