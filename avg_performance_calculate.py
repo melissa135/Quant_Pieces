@@ -1,14 +1,14 @@
 days_count_20 = 'top1_tp_days: 520, top1_np_days: 480, top3_tp_days: 1536, top3_np_days: 1464, top10_tp_days: 5018, top10_np_days: 4980'
-days_count_50 = 'top1_tp_days: 1275, top1_np_days: 1225, top3_tp_days: 3737, top3_np_days: 3763, top10_tp_days: 12228, top10_np_days: 12770'
-days_count_65 = 'top1_tp_days: 1649, top1_np_days: 1601, top3_tp_days: 4898, top3_np_days: 4852, top10_tp_days: 16011, top10_np_days: 16487'
+days_count_50 = 'top1_tp_days: 1285, top1_np_days: 1246, top3_tp_days: 3814, top3_np_days: 3787, top10_tp_days: 12228, top10_np_days: 13018'
+days_count_65 = 'top1_tp_days: 1682, top1_np_days: 1607, top3_tp_days: 5014, top3_np_days: 4858, top10_tp_days: 16026, top10_np_days: 16764'
 
 performance_step20_str = 'top1_log_avg: 0.3720, top3_log_avg: 0.3255, top10_log_avg: 0.2563'
-performance_step50_str = 'top1_log_avg: 0.3508, top3_log_avg: 0.2333, top10_log_avg: 0.1631'
-performance_step65_str = 'top1_log_avg: 0.3160, top3_log_avg: 0.2357, top10_log_avg: 0.1644'
+performance_step50_str = 'top1_log_avg: 0.3294, top3_log_avg: 0.2412, top10_log_avg: 0.1384'
+performance_step65_str = 'top1_log_avg: 0.3132, top3_log_avg: 0.2454, top10_log_avg: 0.1451'
 
 net_asset_20 = 'top5_stay30_no_cost: 444.0749, top5_stay30_normal_cost: 82.2051, top2_stay30_normal_cost: 96.3548, top5_coef_based_normal_cost: 104.9066, top2_coef_based_normal_cost: 128.2328'
-net_asset_50 = 'top5_stay30_no_cost: 795.6233, top5_stay30_normal_cost: 154.4096, top2_stay30_normal_cost: 536.1289, top5_coef_based_normal_cost: 193.2254, top2_coef_based_normal_cost: 384.2514'
-net_asset_65 = 'top5_stay30_no_cost: 5250.4121, top5_stay30_normal_cost: 634.8009, top2_stay30_normal_cost: 3005.7765, top5_coef_based_normal_cost: 748.7321, top2_coef_based_normal_cost: 1048.3054'
+net_asset_50 = 'top5_stay30_no_cost: 511.4206, top5_stay30_normal_cost: 126.5357, top2_stay30_normal_cost: 374.2397, top5_coef_based_normal_cost: 146.0481, top2_coef_based_normal_cost: 380.3155'
+net_asset_65 = 'top5_stay30_no_cost: 2582.7730, top5_stay30_normal_cost: 424.0524, top2_stay30_normal_cost: 1599.9776, top5_coef_based_normal_cost: 467.5546, top2_coef_based_normal_cost: 1239.4565'
 
 tpd_1_20 = int(days_count_20.split(',')[0].split(':')[1])
 npd_1_20 = int(days_count_20.split(',')[1].split(':')[1])

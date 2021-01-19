@@ -53,7 +53,7 @@ def calc_pa_product(a_list, p_list):
 
 
 f_dir = '/home/zhu/workspace/Stock_Offline/predictor'
-folder = 'mlp_dec2020_baseline_20210116131932'
+folder = 'mlp_dec2020_extend_5days_20210118225209'
 f_name = folder + '/results/pred_actual_ensemble'
 
 f_path = os.path.join(f_dir, f_name)
@@ -100,7 +100,7 @@ for pd in pred_list:
     print(pd.date, len(pd.pred_infos))
 '''
 
-top1_actuals, top3_actuals, top10_actuals, topfront_actuals = [], [], [], []
+top1_actual_list, top3_actual_list, top10_actual_list, topfront_actual_list = [], [], [], []
 top1_tp_days, top1_np_days, top3_tp_days, top3_np_days, top10_tp_days, top10_np_days = 0, 0, 0, 0, 0, 0
 topfront_tp_days, topfront_np_days = 0, 0
 net_change_topn_stay30 = 1.0
@@ -142,21 +142,28 @@ for i in range(start_index, end_index):
     
     top1_sids = day_infos.sorted_stock_id[:1] +\
                 [sid for sid in day_infos.limit_up_down if last_order_dict.get(sid, 72) <= 1]
-    top1_actual = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in top1_sids]
+    top1_actuals = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in top1_sids]
+    top1_actual = sum(top1_actuals)/len(top1_actuals)
+    
     top3_sids = day_infos.sorted_stock_id[:3] +\
                 [sid for sid in day_infos.limit_up_down if last_order_dict.get(sid, 72) <= 3]
-    top3_actual = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in top3_sids]
+    top3_actuals = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in top3_sids]
+    top3_actual = sum(top3_actuals)/len(top3_actuals)
+    
     top10_sids = day_infos.sorted_stock_id[:10] +\
                  [sid for sid in day_infos.limit_up_down if last_order_dict.get(sid, 72) <= 10]
-    top10_actual = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in top10_sids]
+    top10_actuals = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in top10_sids]
+    top10_actual = sum(top10_actuals)/len(top10_actuals)
+    
     topfront_sids = day_infos.sorted_stock_id[:front_range] +\
                     [sid for sid in day_infos.limit_up_down if last_order_dict.get(sid, 72) <= front_range]
-    topfront_actual = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in topfront_sids]
-        
-    top1_actuals.extend(top1_actual)
-    top3_actuals.extend(top3_actual)
-    top10_actuals.extend(top10_actual)
-    topfront_actuals.extend(topfront_actual)
+    topfront_actuals = [log_change_single(day_infos.all_stock_info[sid].actual) - log_avg_actuals for sid in topfront_sids]
+    topfront_actual = sum(topfront_actuals)/len(topfront_actuals)
+    
+    top1_actual_list.append(top1_actual)
+    top3_actual_list.append(top3_actual)
+    top10_actual_list.append(top10_actual)
+    topfront_actual_list.append(topfront_actual)
         
     for sid in top1_sids:
         if day_infos.all_stock_info[sid].actual - avg_actuals >= 0 :
@@ -248,10 +255,10 @@ print('top10 tp/np: %.4f'%(top10_tp_days/top10_np_days))
 print('topfront tp/np: %.4f'%(topfront_tp_days/topfront_np_days))
 
 # may sightly different with train output because the last 62-th step is not full of 50 smaples
-print('top1 avg: %.4f'%(sum(top1_actuals)/len(top1_actuals)))
-print('top3 avg: %.4f'%(sum(top3_actuals)/len(top3_actuals)))
-print('top10 avg: %.4f'%(sum(top10_actuals)/len(top10_actuals)))
-print('topfront avg: %.4f'%(sum(topfront_actuals)/len(topfront_actuals)))
+print('top1 avg: %.4f'%(sum(top1_actual_list)/len(top1_actual_list)))
+print('top3 avg: %.4f'%(sum(top3_actual_list)/len(top3_actual_list)))
+print('top10 avg: %.4f'%(sum(top10_actual_list)/len(top10_actual_list)))
+print('topfront avg: %.4f'%(sum(topfront_actual_list)/len(topfront_actual_list)))
 
 print('avg order: %.4f'%(sum(hold_order_list)/len(hold_order_list)))
 print('limit_up_num %d, limit_down_num %d'%(limit_up_num, limit_down_num))
